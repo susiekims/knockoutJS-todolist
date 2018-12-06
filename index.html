@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="https://kendo.cdn.telerik.com/2016.2.504/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2016.2.504/styles/kendo.metro.min.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <nav>
+                <h1 data-bind="text: title"></h1>
+
+            
+                    <div class="switch">
+                        <input type="checkbox" id="switch" data-bind="checked: hideCompleted"/><label for="switch"></label><span>Hide completed</span>
+                    </div>
+
+                    <div class="filter">
+                        <span>Filter items by:</span>
+                        <select class="k-dropdown" data-bind="kendoDropDownList: { data: categories, value: selectedCategory }"></select>
+                    </div>
+                
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="wrapper">
+		<h2 data-bind="if: ToDoList().length > 0">
+			<!--ko text: completedItems()--><!--/ko--> out of <!--ko text: filteredItems().length --><!--/ko--> item<!--ko if: filteredItems().length > 1-->s<!--/ko--> completed. 
+		</h2>
+            <div class="table" data-bind="kendoGrid: { data: filteredItems, rowTemplate: 'template', useKOTemplates: true, columns: [{field: 'Status', width: '15%'},{field: 'Item', width: '30%'},{field: 'Category', width: '30%'}, {width: '15%'}], sortable: true }, visible: filteredItems().length > 0"></div>
+
+            <h2 class="no-items" data-bind="visible: ToDoList().length === 0 && filteredItems().length === 0">You have no items. Add some!</h2>
+            <h2 class="no-items" data-bind="visible: ToDoList().length > 0 && filteredItems().length === 0">You have no <!--ko if: ToDoList().length>0 -->in progress<!--/ko--> items for <!--ko text: selectedCategory()--> <!--/ko-->.</h2>
+			
+            <button class="k-button k-primary" id="addRow" data-bind="click: addRow, disable: editMode()">
+                Add Row
+            </button>
+        </div>
+    </main>
+
+
+    <script src="https://kendo.cdn.telerik.com/2016.2.504/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2016.2.504/js/kendo.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-kendo/0.9.8/knockout-kendo.js"></script>
+    <script src="ViewModel.js"></script>
+
+    <script type="text/html" id="template">
+        <tr data-bind="css: {fade: !isEditing() && $root.editMode()}">
+            <td class="check">
+                <button class="k-button statusButton" data-bind="css: { 'k-primary': isComplete() },click: $root.markAsDone, text: isComplete() ? 'Done' : 'In Progress'"></button>
+            </td>
+
+            <td>
+                <input class="item-input k-input" style="width: 100%" data-bind="attr: {placeholder: item}, value: tempItem, visible: isEditing()" />
+                <span class="view item" data-bind="text: item, visible: !isEditing()"></span>
+            </td>
+
+            <td>
+                <div data-bind="visible: isEditing()">
+                    <select class="category-input" style="width: 100%" data-bind="kendoDropDownList: { width: '100%', value: tempCategory, dataSource: $root.categories, autoClose: false, editable: 'inline'}"></select>
+                </div>
+                <span class="view" data-bind="visible: !isEditing(), text: category"></span>
+            </td>
+
+            <td>
+                <div class="view icons" data-bind="visible: !isEditing(),">
+                    <i class="fas fa-times" title="Delete" data-bind="click: $root.removeItem" id="x"></i>
+                    <i class="fas fa-pencil-alt" title="Edit" data-bind="click: $root.editItem"></i>
+                </div>
+
+                <div class="edit icons" data-bind="visible: isEditing()">
+                    <i class="fas fa-times" title="Delete" data-bind="click: $root.removeItem" id="x"></i>
+                    <i class="fas fa-check" title="Update" id="updates" data-bind="click: $root.confirmEdit"></i>
+                    <i class="fas fa-ban" title="Cancel" id="cancel" data-bind="click: $root.cancelEdit"></i>
+                </div>
+            </td>
+        </tr>
+    </script>
+</body>
+</html>

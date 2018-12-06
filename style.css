@@ -1,0 +1,202 @@
+﻿/* --------- General ----------- */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+/* --------- Typography ----------- */
+
+h1, h2, h3 {
+    font-weight: normal;
+}
+
+h1 {
+   font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+
+.no-items {
+    text-align: center;
+}
+
+/* --------- Header ----------- */
+
+.wrapper {
+    width: 95%;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* --------- Table ----------- */
+main .wrapper {
+   width: 1000px;
+   margin: 0 auto;
+}
+
+form {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    font-size: 1.5rem;
+}
+
+input.item {
+    width: 100%;
+}
+
+table {
+    width: 600px;
+    margin: 50px auto;
+    border-collapse: collapse;
+}
+
+tbody {
+    text-align: center;
+}
+
+td, th {
+    border: 1px solid black;
+}
+
+
+td.check, th.check {
+    border: none;
+}
+
+.done {
+    background-color: lightgreen;
+}
+
+#addRow {
+    display: block;
+    margin: 50px auto;
+}
+
+.statusButton {
+    font-size: 1rem;
+}
+
+.item-input {
+    border: 1px solid blue;
+    font-size: 1.6rem;
+}
+
+.icons > * {
+    margin: 0px 5px;
+    padding: 0px 5px;
+    cursor: pointer;
+}
+
+.editing {
+    border: 1px solid green;
+}
+
+.fade {
+    opacity: .3;
+    background: rgba(0,0,0,.2);
+}
+
+.fa-ban:hover {
+    color: red;
+}
+
+.fa-check:hover {
+    color: green;
+}
+
+.fa-pencil-alt:hover {
+    color: blue
+}
+
+.fa-times:hover {
+    color: orange;
+}
+
+
+/* -------- Switch -----------*/
+
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 22px;
+    border: 1px solid #333;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+    label:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 20px;
+        border: 1px solid #333;
+        transition: 0.3s;
+    }
+
+input:checked + label {
+    background: yellowgreen;
+    border: 1px solid white;
+}
+
+    input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+        border: 1px solid #f6f6f6
+    }
+
+label:active:after {
+    width: 30px;
+}
+.switch {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+button:hover:disabled {
+	color: #ccc;
+	border: 1px solid #e6e6e6;
+	background-color: #fff;
+}
